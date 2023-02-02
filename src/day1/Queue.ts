@@ -1,3 +1,9 @@
+/*
+    (h)A --> B --> C(t)
+    Dequeue at head
+    Enqueue at tail
+*/
+
 type QNode<T> = {
     value: T,
     next?: QNode<T>
