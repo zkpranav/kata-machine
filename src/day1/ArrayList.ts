@@ -11,7 +11,7 @@ export default class ArrayList<T> {
 
     prepend(item: T): void {
         if (this.length === this.capacity) {
-            return;
+            this.capacity = this.capacity * 2;
         }
 
         this.length += 1;
@@ -23,7 +23,7 @@ export default class ArrayList<T> {
 
     insertAt(item: T, idx: number): void {
         if (this.length === this.capacity) {
-            return;
+            this.capacity = this.capacity * 2;
         }
 
         this.length += 1;
@@ -35,7 +35,7 @@ export default class ArrayList<T> {
 
     append(item: T): void {
         if (this.length === this.capacity) {
-            return;
+            this.capacity = this.capacity * 2;
         }
 
         this.arr[this.length] = item;
@@ -53,7 +53,7 @@ export default class ArrayList<T> {
     }
 
     get(idx: number): T | undefined {
-        if (idx >= length) {
+        if (idx >= this.length) {
             return undefined;
         }
 
@@ -61,7 +61,7 @@ export default class ArrayList<T> {
     }
 
     removeAt(idx: number): T | undefined {
-        if (idx >= length) {
+        if (idx >= this.length) {
             return undefined;
         }
 
