@@ -1,6 +1,6 @@
 /*
     RingBuffer - Contiguous memory with indexed head & tail.
-    Everything b/w head & tail is valid & ordered.
+    Everything b/w head & tail is valid & ordered. (Double ended Ring buffer)
 
     Constraints -
     Insertion - if head == tail, either deny insertion or resize
