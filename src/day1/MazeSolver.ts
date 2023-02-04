@@ -1,3 +1,13 @@
+/*
+    Structure for recursive solutions -
+    Base cases - Keep it tight
+    ...
+    ..
+    Pre recurse - The setup
+    Recurse
+    Post recurse - The clean-up
+*/
+
 const dir = [
     [0, 1],
     [1, 0],
