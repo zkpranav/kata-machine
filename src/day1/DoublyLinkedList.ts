@@ -114,12 +114,22 @@ export default class DoublyLinkedList<T> {
         if (idx === this.length - 1) {
             this.length -= 1;
             const value = this.tail!.value;
-            this.tail = this.tail!.prev;
+            if (this.length === 0) {
+                this.head = this.tail = undefined;
+            } else {
+                this.tail = this.tail!.prev;
+            }
+
             return value;
         } else if (idx === 0) {
             this.length -= 1;
             const value = this.head!.value;
-            this.head = this.head!.next;
+            if (this.length === 0) {
+                this.head = this.tail = undefined;
+            } else {
+                this.head = this.head!.next;
+            }
+
             return value;
         }
 
@@ -141,7 +151,6 @@ export default class DoublyLinkedList<T> {
 
     print(): void {
         let curr = this.head;
-        console.log("---------- **** ----------");
         for (let i = 0; i < this.length; i++) {
             console.log(`${i}: ${curr!.value}`);
             curr = curr?.next;

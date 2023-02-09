@@ -108,7 +108,12 @@ export default class SinglyLinkedList<T> {
         } else if (idx === 0) {
             const value = this.head!.value;
             this.length -= 1;
-            this.head = this.head!.next;
+            if (this.length === 0) {
+                this.head = undefined;
+            } else {
+                this.head = this.head!.next;
+            }
+
             return value;
         }
 
