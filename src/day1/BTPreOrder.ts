@@ -7,6 +7,9 @@
     Generalized -
     Pre-order - Parent then children
     Post-order - Children then parent
+
+    Time complexity - 
+    O(n) for n nodes
 */
 
 function visit(node: BinaryNode<number> | null, path: Array<number>): number[] {

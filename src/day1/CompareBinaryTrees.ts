@@ -1,5 +1,6 @@
 /*
     Prefer a depth-first search here, or a similar stack oriented search because it preserves shape
+    O(n) for n nodes
 */
 
 export default function compare(a: BinaryNode<number> | null, b: BinaryNode<number> | null): boolean {

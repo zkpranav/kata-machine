@@ -7,6 +7,9 @@
     2. Place the pivot in the middle, i.e everything less than it to the left, and everything higher than it to the right.
     3. This sorts one element, the pivot but the "sub-array" to its left and right have specific properties.
     4. Solve the subarrays in a similar fashion until no more subarrays can be formed.
+
+    Time complexity -
+    b/w O(n log(n)) - O(n^2) (depending how you pick the pivot, and the state of the array. eg: If you pick high as the pivot and the array is sorted in reverse)
 */
 export default function quick_sort(arr: number[]): void {
     quickSort(arr, 0, arr.length - 1);

@@ -2,6 +2,10 @@
     A <-- B <-- C(h)
     Push at the head
     Pop at the head
+
+    Time complexities -
+    peek -> O(1)
+    push & pop -> O(1)
 */
 
 type SNode<T> = {

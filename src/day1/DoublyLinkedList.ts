@@ -1,3 +1,10 @@
+/*
+    Time complexities -
+    Find -> O(n) even though practically it could be n/2
+    insertion -> O(1)
+    deletion -> O(1)
+*/
+
 type Node<T> = {
     value: T;
     prev?: Node<T>;

@@ -1,3 +1,10 @@
+/*
+    Time complexities -
+    Find -> O(n)
+    insertion -> O(1)
+    deletion -> O(1)
+*/
+
 type Node<T> = {
     value: T;
     next: Node<T>;

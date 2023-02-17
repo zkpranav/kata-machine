@@ -1,3 +1,10 @@
+/*
+    Time complexities -
+    find -> O(1)
+    push & pop -> O(1)
+    enqueue & dequeue -> O(n) due to potential shifting (also includes insertAt & removeAt)
+*/
+
 export default class ArrayList<T> {
     public length: number;
     private capacity: number;

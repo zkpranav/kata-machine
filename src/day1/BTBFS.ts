@@ -1,5 +1,8 @@
 /*
     A tree order traversal, where you visit each level of the tree completely before proceeding to the next.
+
+    Time complexity -
+    O(n) for n nodes
 */
 
 export default function bfs(head: BinaryNode<number>, needle: number): boolean {
