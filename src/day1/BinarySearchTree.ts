@@ -111,7 +111,6 @@ class BinaryTree {
                         subTreeRootParent = subTreeRoot;
                         subTreeRoot = subTreeRoot.right;
                     }
-                    subTreeRootParent.right = null;
 
                     if (subTreeRoot.left) {
                         // One child
