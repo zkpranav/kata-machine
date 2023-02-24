@@ -4,6 +4,8 @@
 
     If left unbalanced, values to skew the tree to one side, effectively turning it into a linked list
     Therefore, time complexity for search is b/w O(log(n)) - O(h) where, h is the height of the tree
+
+    Can be balanced w/ either an AVL tree or a Red-Black tree
 */
 
 class BinaryTree {
