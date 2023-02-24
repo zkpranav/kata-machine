@@ -75,85 +75,47 @@ class BinaryTree {
         return false;
     }
 
-    delete(value: number): number | undefined {
+    deleteWrapper(value: number): number | undefined {
         if (this.root === undefined) {
             return undefined;
         }
 
-        let parent: BinaryNode<number> = this.root;
-        let node: BinaryNode<number> | null = this.root;
+        const deletedNode = this.delete(this.root, value);
+        if (deletedNode) {
+            return deletedNode.value;
+        } else {
+            return undefined;
+        }
+    }
 
-        while(node !== null) {
-            if (value === node.value) {
-                // No children case
-                if (!node.left && !node.right) {
-                    const res = node.value;
-
-                    if (node === this.root) {
-                        this.root = undefined;
-                        return res;
-                    }
-                    
-                    if (parent.left === node) {
-                        parent.left = null;
-                        return res;
-                    } else {
-                        parent.right = null;
-                        return res;
-                    }
-                }
-
-                // Two children case
-                if (node.left && node.right) {
-                    let subTreeRootParent = node;
-                    let subTreeRoot = node.left;
-                    while(subTreeRoot.right) {
-                        subTreeRootParent = subTreeRoot;
-                        subTreeRoot = subTreeRoot.right;
-                    }
-
-                    if (subTreeRoot.left) {
-                        // One child
-                        if (subTreeRootParent.left === subTreeRoot) {
-                            subTreeRootParent.left = subTreeRoot.left;
-                        } else {
-                            subTreeRootParent.right = subTreeRoot.left;
-                        }
-                    }
-
-                    const res = node.value;
-                    node.value = subTreeRoot.value;
-
-                    return res;
-                }
-
-                // One child case
-                if (node.left || node.right) {
-                    const res = node.value;
-                    if (node === this.root) {
-                        node.left? this.root = node.left: this.root = node.right!;
-                        return res;
-                    }
-
-                    if (parent.left === node) {
-                        node.left? parent.left = node.left: parent.left = node.right;
-                    } else {
-                        node.left? parent.right = node.left: parent.right = node.right;
-                    }
-                    return res;
-                }
-
-                throw new Error("Unreachable code");
-            } else if (value < node.value) {
-                parent = node;
-                node = node.left;
-            } else {
-                parent = node;
-                node = node.right;
-            }
+    private delete(root: BinaryNode<number> | null, value: number): BinaryNode<number> | null {
+        if (root === null) {
+            return null;
         }
 
-        return undefined;
+        if (value < root.value) {
+            root.left = this.delete(root.left, value);
+        } else if (value > root.value) {
+            root.right = this.delete(root.right, value);
+        } else {
+            // Handle one child case & no child case
+            if (root.left === null) {
+                return root.right;
+            } else if (root.right === null) {
+                return root.left;
+            }
+
+            // Handle two children case
+            let node = root.right;
+            while (node.left) {
+                node = node.left;
+            }
+
+            node.left = root.left;
+            return root.right;
+        }
+
+        return root;
     }
 
     inorderTraversal(node: BinaryNode<number> | null | undefined = this.root): void {
@@ -178,10 +140,10 @@ bTree.insert(4);
 bTree.insert(37);
 bTree.inorderTraversal();
 
-bTree.delete(4);
+bTree.deleteWrapper(4);
 console.log("--------------- *** ---------------");
 bTree.inorderTraversal();
 
-bTree.delete(51);
+bTree.deleteWrapper(51);
 console.log("--------------- *** ---------------");
 bTree.inorderTraversal();
