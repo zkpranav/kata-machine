@@ -1,6 +1,9 @@
 /*
     BFS is reminiscent of a implicit queue
     Done similarly as done on a tree
+
+    Time complexity -
+    O(V + E)
 */
 
 export default function bfs(graph: WeightedAdjacencyMatrix, source: number, needle: number): number[] | null {

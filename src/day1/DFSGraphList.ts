@@ -1,3 +1,8 @@
+/*
+    Time complexity -
+    O(V + E)
+*/
+
 function walk(graph: WeightedAdjacencyList, curr: number, needle: number, seen: boolean[], path: number[]): boolean {
     if (seen[curr]) {
         return false;
