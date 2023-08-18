@@ -4,7 +4,7 @@ export default function two_crystal_balls(breaks: boolean[]): number {
     }
 
     const jump = Math.floor(Math.sqrt(breaks.length));
-    let pos = 0;
+    let pos = jump;
     while (pos < breaks.length) {
         if (breaks[pos] === true) {
             let i = pos - jump;
