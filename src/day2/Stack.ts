@@ -6,11 +6,9 @@ type Node<T> = {
 export default class Stack<T> {
     public length: number;
     private head: Node<T> | undefined;
-    private tail: Node<T> | undefined;
 
     constructor() {
         this.head = undefined;
-        this.tail = undefined;
         this.length = 0;
     }
 
