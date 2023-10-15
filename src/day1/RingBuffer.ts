@@ -18,14 +18,18 @@ export default class RingBuffer<T> {
     private arr: Array<T>;
 
     constructor(capacity: number) {
-        this.capacity = capacity;
-        this.head = this.tail = 0;
+        // Capacity value is inclusive
+        this.capacity = capacity - 1;
+        // b/w head -> tail is valid
+        this.head = this.capacity;
+        this.tail = 0;
         this.arr = [];
     }
 
+    // Insert at the tail
     push(item: T): void {
-        if ((this.tail + 1) % this.capacity === this.head) {
-            // Handle resize
+        if (((this.tail + 1) % this.capacity) === this.head) {
+            // Deny
             return;
         }
 
@@ -33,30 +37,10 @@ export default class RingBuffer<T> {
         this.arr[this.tail] = item;
     }
 
-    pop(): T | undefined {
-        const tail = this.tail - 1 < 0? this.capacity - 1: this.tail - 1;
-        if (tail === this.head) {
-            return undefined;
-        }
-
-        const ret = this.arr[this.tail];
-        this.tail = tail;
-
-        return ret;
-    }
-
-    enqueue(item: T): void {
-        const head = this.head - 1 < 0? this.capacity - 1: this.head - 1;
-        if (head === this.tail) {
-            return;
-        }
-
-        this.head = head;
-        this.arr[this.head] = item;
-    }
-
+    // Remove at the head
     dequeue(): T | undefined {
-        if ((this.head + 1) % this.capacity === this.tail) {
+        if (this.head === this.tail) {
+            // Deny
             return undefined;
         }
 
@@ -64,5 +48,31 @@ export default class RingBuffer<T> {
         this.head = (this.head + 1) % this.capacity;
 
         return ret;
+    }
+
+    // Remove at the tail
+    pop(): T | undefined {
+        if (this.tail === this.head) {
+            // Deny
+            return undefined;
+        }
+
+        const ret = this.arr[this.tail];
+        // this.tail = (this.tail - 1) % this.capacity;
+        this.tail = this.tail - 1 < 0? this.capacity: this.tail - 1;
+
+        return ret;
+    }
+
+    // Insert at head
+    enqueue(item: T): void {
+        const tmp = this.head - 1 < 0? this.capacity: this.head - 1;
+        if (tmp === this.tail) {
+            // Deny
+            return;
+        }
+
+        this.head = tmp;
+        this.arr[this.head] = item;
     }
 }
