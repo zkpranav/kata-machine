@@ -20,19 +20,20 @@ class BinaryTree {
         this.root = undefined;
     }
 
-    insert(value: number, node: BinaryNode<number> | undefined = this.root): void {
-        if (node === undefined && this.root === undefined) {
-            this.root = {
-                value: value,
-                left: null,
-                right: null
-            } as BinaryNode<number>;
-            return;
-        } else if (node === undefined) {
-            throw new Error("Node can't be undefined if root exists.");
+    insert(value: number, node: BinaryNode<number> | null): void {
+        if (!node) {
+            if (this.root === undefined) {
+                this.root = {
+                    value: value,
+                    left: null,
+                    right: null
+                } as BinaryNode<number>;
+                return;
+            } else {
+                throw new Error("Node cannot be Falsy");
+            }
         }
-        
-        node = node as BinaryNode<number>;
+
         if (value <= node.value) {
             if (node.left) {
                 this.insert(value, node.left);
@@ -42,7 +43,6 @@ class BinaryTree {
                     left: null,
                     right: null
                 } as BinaryNode<number>;
-                return;
             }
         } else {
             if (node.right) {
@@ -53,79 +53,72 @@ class BinaryTree {
                     left: null,
                     right: null
                 } as BinaryNode<number>;
-                return;
             }
         }
     }
 
-    find(value: number): boolean {
+    find(value: number): BinaryNode<number> | undefined {
         if (this.root === undefined) {
-            return false;
+            return undefined;
         }
 
+        let ret = undefined;
         let node: BinaryNode<number> | null = this.root;
-        while(node !== null) {
+        do {
             if (value === node.value) {
-                return true;
+                ret = node;
+                break;
             } else if (value < node.value) {
                 node = node.left;
             } else {
                 node = node.right;
             }
+        } while (node);
+
+        return ret;
+    }
+
+    min(root: BinaryNode<number>): BinaryNode<number> {
+        let node = root;
+        while (node.left) {
+            node = node.left;
+        }
+        return node;
+    }
+
+    deleteMin(root: BinaryNode<number>): BinaryNode<number> {
+        let node: BinaryNode<number> | null = this.min(root) as BinaryNode<number>;
+        const ret = node;
+        node = node.right;
+
+        return ret;
+    }
+
+    delete(value: number): number | undefined {
+        let node: BinaryNode<number> | undefined | null = this.find(value);
+        if (node === undefined) {
+            return undefined;
         }
 
-        return false;
-    }
+        const ret = node.value;
+        if (node.left === null && node.right === null) {
+            // 0 children
+            node = null;
+        } else if (node.left && node.right === null) {
+            // 1 child
+            node = node.left;
+        } else if (node.right && node.left === null) {
+            // 1 child
+            node = node.right;
+        } else {
+            // 2 children
+            const min = this.deleteMin(node.right as BinaryNode<number>);
+            min.left = node.left;
+            min.right = node.right;
+            node = min;
+        }
 
-    deleteWrapper(value: number): number | undefined {
-        // Suppressing warning
-        return undefined;
-
-        // if (this.root === undefined) {
-        //     return undefined;
-        // }
-
-        // const deletedNode = this.delete(this.root, value);
-        // if (deletedNode) {
-        //     return deletedNode.value;
-        // } else {
-        //     return undefined;
-        // }
-    }
-
-    private delete(root: BinaryNode<number> | null, value: number): BinaryNode<number> | null {
-        // Suppressing warning
-        return null;
-
-        /* INCORRECT */
-
-        // if (root === null) {
-        //     return null;
-        // }
-
-        // if (value < root.value) {
-        //     root.left = this.delete(root.left, value);
-        // } else if (value > root.value) {
-        //     root.right = this.delete(root.right, value);
-        // } else {
-        //     // Handle one child case & no child case
-        //     if (root.left === null) {
-        //         return root.right;
-        //     } else if (root.right === null) {
-        //         return root.left;
-        //     }
-
-        //     // Handle two children case
-        //     let node = root.right;
-        //     while (node.left) {
-        //         node = node.left;
-        //     }
-
-        //     node.left = root.left;
-        //     return root.right;
-        // }
-
-        // return root;
+        return ret;
     }
 
     inorderTraversal(node: BinaryNode<number> | null | undefined = this.root): void {
